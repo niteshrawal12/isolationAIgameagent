@@ -1,30 +1,60 @@
-# isolationAIgameagent
-Isolation AI game agent is a two-player deterministic game and its implementation uses the minimax algorithm with alpha-beta pruning and Iterative deepening Search .
-Technology Used : Java | Java Swing and AWT.
-Algorithm Used : minimax | alpha-beta pruning | Iterative deepening Search
-1.Rules :
-The purpose of this project is to implement a two-player Isolation AI game agent of perfect information in which the players alternate turns moving a single piece of Knight from one cell to another on a board. Whenever either player occupies a cell, that cell becomes blocked for the remainder of the game. where each agent is restricted to L-shaped movements (like a knight in chess) on a rectangular grid (like a chess ). The agents can move to any open cell on the board that is 2-rows and 1-column or 2-columns and 1-row away from their current position on the board. The first player with no remaining legal moves loses, and the opponent is declared the winner.
-2.Environment Set-up : environment setup of Isolation AI Game Agent involves the installation of Java JDK 8 to your system. Although we have used IDE Netbeans for java AWT and Swing in GUI (Graphical User Interface) to design the grid layout of Rectangular
-8x8 chess which uses an Image Icon of black knight and White knight in the resources folder Extract the ZIP file and locate the src folder inside with the command prompt. Executing the program: 1) Use 'cd' in command prompt into the 'src' folder 2) Enter: javac Isolation.java 3) Enter: java Isolation
-3.Explaination of Algorithm :
-Minimax Algorithm -
-The Minimax Algorithm is a popular method for adversarial search problems in a multiplayer setting. It is rooted in the idea of a evaluation of any state in the game where one player wants to maximize the score and the other wants to minimize the score away from the first player. The algorithm helps to calculate which move, in any given state, would give the most value in aiding victory. It uses an alternation of max and min steps where player A would try to find the best move expecting that the player B will make the, “worst” move possible against player A’s goal. This technique allows for evaluation of future predicted states in attempt to bring the game to a more favorable position as the game proceeds.
-In our Code we use method of minimax-
-public int minimax(int mat[][], boolean ismax, int depth, int depthlimit)
-This method described by a set of rules and premises. With them, it is possible to know from a given point in the game, what are the next available moves. So they also share other characteristic, they are ‘full information games’. Each player knows everything about the possible moves of the adversary.
-The values represent how good a game move is. So the MAX player will try to select
-the move with highest value in the end. But the MIN player also has something to say about it and he will try to select the moves that are better to him, thus minimizing MAX’s outcome.
-findBestMove(). This function evaluates all the available moves using minimax() and then returns the best move the maximizer can make The code for the maximizer and minimizer in the minimax() function is similar to findBestMove() , the only difference is, instead of returning a move, it will return a value.
-Alpha-Beta Pruning Algorithm -
-The alpha-beta pruning method is a technique to allow faster computation of the minimax algorithm. Since there is very large number of paths to take, it would take an extravagant amount of time to check single possibility. By using an alpha and beta value, the algorithm will have a minimum standard to look for. The alpha value is the highest score the algorithm has found for any path for max and the beta value is the highest score along the path for min. If the beta score is lower than alpha, no higher score than beta can be found, and thus there would be no need to search down such path any longer. This way, many unnecessary paths are pruned away so the calculation is quicker. To further shorten the time needed, especially in games with a high branching factor, iterative deepening search method is also used.
-Iterative Deepening Search
-Iterative deepening is a form of searching which limits the depth, or how many moves later, of each path the algorithm will explore. This allows for the algorithm
-to specify how many moves to foresee instead of endlessly calculating through a path that may not even matter.
-I have used iterativeDeepening method –
-public Position iterativeDeepening(int mat[][])
-Development Process :
-There were a ton of debugging issues for this project. For starters, when creating and testing a lot of the functions for the Isolation class, it was often hard to iterate all of the possible moves and it was hard to keep track of the bounds . GridWindow class is Implementing the UI the way the project specifies proved to be a challenge as well. If it was just the Board followed vertically downwards with the list of moves, then it would’ve been straightforward. However, it was specified that the list was to be directly to the L-shaped movements, which took a lot longer than expected. There were just so many conditions to keep track of, but eventually it was able to work.
-At first, the heuristic we used was not optimal. We were playing against the AI and it seemed to always fall for the same traps (or lose to counting), or even worse, trap itself. However, after we settled on the heuristic (see above) with balancing aggressive and defensive options, then the AI started making more balanced, good moves.
-For the alpha-beta pruning algorithm, it seemed impossible to get it to work at first. We needed to make sure the implementation was set first before we touched the algorithm at all (make sure all the methods were bug-free and void of exceptions). After what we thought was a correct implementation, we ran into the first big barrier. There was no way we could tell which path to take, because the algorithm returns an evaluation and not necessarily a specific path. Also, it was very hard for us to be able to return the proper action after we found the best move. However, none of these methods were successful in solving our problem, after a long period of trial and error, we finally stumbled across a solution.
-Trying to solve the algorithm implemented with minimax , alpha-beta pruning , Iterative deepening Search proved to be a challenge as well. It was difficult because of the callback of the recursive functions since we can’t stop the recursive function while it is constantly calling back. Only when it is going through and because we don’t want it to be calling back the terminal states.
+# Isolation AI Game Agent
+
+![Isolation AI Game Agent](/viz.gif) <!-- If you have a screenshot, replace the "path/to/your/game-screenshot.png" with the actual path -->
+
+Isolation AI Game Agent is a two-player deterministic game implementing the minimax algorithm with alpha-beta pruning and Iterative Deepening Search. The game is played on a rectangular grid, similar to chess, where players alternate turns moving a single piece of Knight. Each agent can make L-shaped movements (like a knight in chess) to any open cell on the board that is 2-rows and 1-column or 2-columns and 1-row away from their current position. The objective is to block the opponent's moves until one player runs out of legal moves, making the other player the winner.
+
+## Rules
+
+- Players take turns moving their Knight piece on the board.
+- Once a cell is occupied by a player, it becomes blocked for the rest of the game.
+- Knights can move in L-shaped patterns, like in chess.
+- The first player with no remaining legal moves loses, and the opponent is declared the winner.
+
+## Technology Used
+
+- Java
+- Java Swing and AWT
+
+## Environment Set-up
+
+To set up the Isolation AI Game Agent environment, follow these steps:
+
+1. Install Java JDK 8 on your system.
+2. Use IDE Netbeans for Java AWT and Swing in GUI (Graphical User Interface) to design the grid layout of the Rectangular 8x8 chess board.
+3. Use Image Icons of black and white knights in the resources folder.
+4. Extract the ZIP file and locate the `src` folder inside with the command prompt.
+5. Execute the program:
+   - Use 'cd' in the command prompt to navigate to the 'src' folder.
+   - Enter: `javac Isolation.java`
+   - Enter: `java Isolation`
+
+## Explanation of Algorithms
+
+### Minimax Algorithm
+
+The Minimax Algorithm is a popular method for adversarial search problems in a multiplayer setting. It evaluates the state of the game, where one player aims to maximize the score, and the other wants to minimize the score away from the first player. This algorithm helps calculate the best move in any given state to aid victory.
+
+The code includes a `minimax()` method that evaluates available moves using recursion. The MAX player tries to find the best move, while the MIN player selects moves to minimize MAX's outcome.
+
+### Alpha-Beta Pruning Algorithm
+
+The alpha-beta pruning method is a technique to speed up the computation of the minimax algorithm. It uses an alpha and beta value to set a minimum standard to look for, allowing the algorithm to skip unnecessary paths and improve efficiency.
+
+### Iterative Deepening Search
+
+Iterative deepening search limits the depth of each path the algorithm explores. This helps to foresee a specified number of moves instead of endlessly calculating through irrelevant paths.
+
+The `iterativeDeepening()` method in the code implements this technique.
+
+## Development Process
+
+The development process for this project involved several challenges:
+
+- Debugging issues while creating and testing functions for the Isolation class.
+- Implementing the UI using Java AWT and Swing to match project specifications.
+- Designing a heuristic to improve AI moves, considering both aggressive and defensive strategies.
+- Overcoming obstacles in implementing the alpha-beta pruning algorithm.
+- Addressing recursive function callback challenges during the implementation of minimax, alpha-beta pruning, and Iterative Deepening Search.
+  
 Overall, we learned so much through this project and it was extremely fun to work on.
